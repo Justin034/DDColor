@@ -2,7 +2,7 @@
 name: train_ddcolor_l
 model_type: ColorModel
 scale: 1
-num_gpu: 4
+num_gpu: 1
 manual_seed: 0
 queue_size: 64
 
@@ -12,7 +12,7 @@ datasets:
     name: ImageNet
     type: LabDataset
     dataroot_gt: /
-    meta_info_file: ['data_list/imagenet.txt']
+    meta_info_file: ['data_list/a.txt']
     io_backend:
       type: disk
 
