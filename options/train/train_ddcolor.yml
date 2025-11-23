@@ -1,15 +1,15 @@
 # general settings
-name: train_ddcolor_l
+name: 424_Train_Iter_4
 model_type: ColorModel
 scale: 1
-num_gpu: 0
+num_gpu: 1
 manual_seed: 0
 queue_size: 64
 
 # dataset and data loader settings
 datasets:
   train:
-    name: 424Train
+    name: 424_Project_Training
     type: LabDataset
     dataroot_gt: /
     meta_info_file: ['data_list/training_data.txt']
@@ -38,7 +38,7 @@ datasets:
 
   # Uncomment these for validation
   val:
-    name: 424Train
+    name: 424_Project_Validation
     type: LabDataset
     # dataroot_gt: path_to_gt
     dataroot_gt: /
@@ -46,7 +46,7 @@ datasets:
     gt_size: 256
     io_backend:
       type: disk
-      
+    
     # cutmix / fmix
     do_cutmix: False
     cutmix_p: 0.5
@@ -57,13 +57,14 @@ datasets:
 network_g:
   type: DDColor
   
-  encoder_name: convnext-t
+  encoder_name: convnext-l
   encoder_from_pretrain: True
 
   decoder_name: MultiScaleColorDecoder
   num_queries: 100
   num_scales: 3
-  dec_layers: 9
+  # dec_layers: 9
+  dec_layers: 6
 
   last_norm: Spectral
   num_output_channels: 2
@@ -101,7 +102,7 @@ train:
     milestones: [80000, 120000, 160000, 200000, 240000, 280000, 320000, 360000]
     gamma: 0.5
 
-  total_iter: 400000
+  total_iter: 2000
   warmup_iter: -1  # no warm up
 
   # losses
@@ -147,10 +148,10 @@ val:
       cf:
         type: calculate_cf
         better: higher
-#     psnr:
-#       type: calculate_psnr
-#       crop_border: 4
-#       test_y_channel: false
+      psnr:
+        type: calculate_psnr
+        crop_border: 4
+        test_y_channel: false
 
 # logging settings
 logger:
